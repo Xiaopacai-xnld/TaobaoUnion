@@ -1,15 +1,15 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id 'com.android.application'
 }
 
 android {
     namespace 'com.example.taobaounion'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.example.taobaounion"
         minSdk 22
-        targetSdk 35
+        targetSdk 36
         versionCode 1
         versionName "1.0"
 
@@ -26,23 +26,57 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
+    // 本地 libs 下的 jar 包
     implementation fileTree(dir: 'libs', includes: ['*.jar'])
+
+    // 基础库
     implementation libs.kotlin.stdlib.jdk7
     implementation libs.appcompat
     implementation libs.core.ktx
-    implementation 'com.google.android.material:material:1.4.0-alpha03'
-    implementation 'junit:junit:'
-    implementation 'com.google.android.material:compose-theme-adapter-3:1.1.1'
-    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
-
-    implementation libs.appcompat
-    implementation libs.material
-    implementation libs.activity
+    implementation libs.recyclerview
+    implementation libs.material.v1130
     implementation libs.constraintlayout
+    implementation libs.activity
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation libs.android.core
+
+    // 测试
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+    // 网络请求
+    implementation libs.retrofit
+    implementation libs.converter.gson
+
+    // 图片加载
+    implementation 'com.github.bumptech.glide:glide:5.0.5'
+    annotationProcessor 'com.github.bumptech.glide:compiler:5.0.5'
+
+    // ButterKnife（注意 compiler 用 annotationProcessor）
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
+    // 下拉刷新（SmartRefreshLayout 替代 TKRefreshLayout）
+    implementation 'io.github.scwang90:refresh-layout-kernel:2.0.6'    // 核心
+    implementation 'io.github.scwang90:refresh-header-classics:2.0.6' // 经典Header
+    implementation 'io.github.scwang90:refresh-footer-classics:2.0.6' // 经典Footer
+
+    // 基础工具库（RxTool）
+    implementation 'com.github.tamsiree.RxTool:RxKit:v2.4.1'
+    implementation 'com.github.tamsiree.RxTool:RxUI:v2.4.1'
+    implementation 'com.github.tamsiree.RxTool:RxFeature:v2.4.1'
+
+    // ZXing 二维码
+    implementation 'com.google.zxing:core:3.5.3'
+
+    // Guava（用 Android 版本，避免重复类冲突）
+    implementation 'com.google.guava:guava:33.5.0-android'
 }

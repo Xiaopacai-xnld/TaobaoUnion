@@ -1,6 +1,12 @@
 [versions]
 agp = "8.10.1"
+androidCore = "3.3.0"
+butterknifeCompiler = "10.2.3"
+cardviewV7 = "28.0.0"
+compiler = "5.0.5"
 coreKtx = "1.17.0"
+googleMaterial = "1.13.0"
+gradle = "8.13.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
@@ -9,9 +15,20 @@ kotlinStdlibJdk7 = "1.8.22"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
+materialVersion = "1.4.0-alpha03"
+recyclerview = "1.4.0"
+retrofit = "3.0.0"
+rxkit = "v2.4.1"
+tkrefreshlayout = "1.0.7"
 
 [libraries]
+android-core = { module = "com.google.zxing:android-core", version.ref = "androidCore" }
+butterknife-compiler = { module = "com.jakewharton:butterknife-compiler", version.ref = "butterknifeCompiler" }
+cardview-v7 = { module = "com.android.support:cardview-v7", version.ref = "cardviewV7" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -20,6 +37,14 @@ kotlin-stdlib-jdk7 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk7", versi
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+material-v1130 = { module = "com.google.android.material:material", version.ref = "googleMaterial" }
+material-v140alpha03 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+rxfeature = { module = "com.github.tamsiree.RxTool:RxFeature", version.ref = "rxkit" }
+rxkit = { module = "com.github.tamsiree.RxTool:RxKit", version.ref = "rxkit" }
+rxui = { module = "com.github.tamsiree.RxTool:RxUI", version.ref = "rxkit" }
+tkrefreshlayout = { module = "com.lcodecorex:tkrefreshlayout", version.ref = "tkrefreshlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
