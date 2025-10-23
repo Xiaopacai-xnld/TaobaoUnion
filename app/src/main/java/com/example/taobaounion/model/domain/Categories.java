@@ -48,4 +48,46 @@ public class Categories {
         this.data = data;
     }
 
+    public static class DataBean {
+        /**
+         * id : 9660
+         * title : 推荐
+         */
+        private int id;
+        private String title;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "id=" + id +
+                    ", title='" + title + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Categories{" +
+                "success=" + success +
+                ", code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

@@ -52,16 +52,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 //                Log.d(TAG, "title -- > " + item.getTitle() + "id -- > " + item.getItemId());
                 if (item.getItemId() == R.id.home) {
-                    LogUtils.d(MainActivity.class, "切换到首页");
+                    LogUtils.d(this, "切换到首页");
                     switchFragment(mhomeFragment);
                 } else if (item.getItemId() == R.id.selected) {
-                    LogUtils.d(MainActivity.class, "切换到精选");
+                    LogUtils.d(this, "切换到精选");
                     switchFragment(mselectedFragment);
                 } else if (item.getItemId() == R.id.red_packet) {
-                    LogUtils.d(MainActivity.class, "切换到特惠");
+                    LogUtils.d(this, "切换到特惠");
                     switchFragment(mredPacketFragment);
                 } else if (item.getItemId() == R.id.search) {
-                    LogUtils.d(MainActivity.class, "切换到搜索");
+                    LogUtils.d(this, "切换到搜索");
                     switchFragment(msearchFragment);
                 }
                 return true;
@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         LogUtils.d(MainActivity.class, "onDestroy----- ");
         super.onDestroy();
 
-        binding = null;
+        if (binding != null) {
+            binding = null;
+        }
     }
 }
