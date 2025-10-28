@@ -1,5 +1,7 @@
 package com.example.taobaounion.model.domain;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 public class Categories {
@@ -72,6 +74,7 @@ public class Categories {
             this.title = title;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return "DataBean{" +
@@ -81,6 +84,7 @@ public class Categories {
         }
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Categories{" +

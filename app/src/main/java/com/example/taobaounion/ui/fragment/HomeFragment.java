@@ -11,10 +11,10 @@ import com.example.taobaounion.presenter.impl.HomePresenterImpl;
 import com.example.taobaounion.ui.adapter.HomePagerAdapter;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.view.IHomeCallback;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class HomeFragment extends BaseFragment implements IHomeCallback {
 
-    private FragmentHomeBinding binding;
     private HomePresenterImpl mHomePresenter;
     private HomePagerAdapter mhomePagerAdapter;
 
@@ -26,14 +26,14 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
 
     @Override
     protected void initView(View rootView) {
-        binding = FragmentHomeBinding.bind(rootView);
-
-        binding.homeIndicator.setupWithViewPager(binding.homePager);
-
+        FragmentHomeBinding binding = FragmentHomeBinding.bind(rootView);
         //给ViewPager设置适配器
-        mhomePagerAdapter = new HomePagerAdapter(getChildFragmentManager());
+        mhomePagerAdapter = new HomePagerAdapter(this);
         //设置适配器
         binding.homePager.setAdapter(mhomePagerAdapter);
+        new TabLayoutMediator(binding.homeIndicator, binding.homePager,
+                (tab, position) -> tab.setText(mhomePagerAdapter.getPageTitle(position))
+        ).attach();
     }
 
     @Override

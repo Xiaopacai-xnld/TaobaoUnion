@@ -1,5 +1,7 @@
 package com.example.taobaounion.presenter.impl;
 
+import androidx.annotation.NonNull;
+
 import com.example.taobaounion.model.Api;
 import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.presenter.IHomePresenter;
@@ -25,7 +27,7 @@ public class HomePresenterImpl implements IHomePresenter {
         Call<Categories> task = api.getCategories();
         task.enqueue(new Callback<Categories>() {
             @Override
-            public void onResponse(Call<Categories> call, Response<Categories> response) {
+            public void onResponse(@NonNull Call<Categories> call, @NonNull Response<Categories> response) {
                 //数据结果
                 int code = response.code();
                 LogUtils.d(HomePresenterImpl.this, "result code is -- > " + code);
@@ -43,7 +45,7 @@ public class HomePresenterImpl implements IHomePresenter {
             }
 
             @Override
-            public void onFailure(Call<Categories> call, Throwable t) {
+            public void onFailure(@NonNull Call<Categories> call, @NonNull Throwable t) {
                 //加载失败的结果
                 LogUtils.e(HomePresenterImpl.this, "请求错误..." + t.getMessage());
             }

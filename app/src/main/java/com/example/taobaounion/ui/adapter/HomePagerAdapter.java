@@ -1,10 +1,11 @@
 package com.example.taobaounion.ui.adapter;
 
+import android.annotation.SuppressLint;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.ui.fragment.HomePagerFragment;
@@ -13,37 +14,37 @@ import com.example.taobaounion.utils.LogUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePagerAdapter extends FragmentPagerAdapter {
+public class HomePagerAdapter extends FragmentStateAdapter {
 
     private List<Categories.DataBean> categoryList = new ArrayList<>();
 
-    public HomePagerAdapter(@NonNull FragmentManager fm) {
-        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+    public HomePagerAdapter(@NonNull Fragment fragment) {
+        super(fragment);
     }
 
     @Nullable
-    @Override
     public CharSequence getPageTitle(int position) {
         return categoryList.get(position).getTitle();
     }
 
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        HomePagerFragment homePagerFragment = new HomePagerFragment();
-        return homePagerFragment;
-    }
-
-    @Override
-    public int getCount() {
-        return categoryList.size();
-    }
-
+    @SuppressLint("NotifyDataSetChanged")
     public void setCategories(Categories categories) {
         categoryList.clear();
         LogUtils.d(this, "size -- > " + categoryList.size());
         List<Categories.DataBean> data = categories.getData();
         this.categoryList.addAll(data);
         notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) {
+        HomePagerFragment homePagerFragment = new HomePagerFragment();
+        return homePagerFragment;
+    }
+
+    @Override
+    public int getItemCount() {
+        return categoryList.size();
     }
 }
