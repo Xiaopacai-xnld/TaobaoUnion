@@ -1,7 +1,9 @@
 package com.example.taobaounion.ui.fragment;
 
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.taobaounion.R;
 import com.example.taobaounion.base.BaseFragment;
@@ -26,7 +28,10 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
 
     @Override
     protected void initView(View rootView) {
-        FragmentHomeBinding binding = FragmentHomeBinding.bind(rootView);
+        LogUtils.d("HomeFragment", "rootView id = " + rootView.getId());
+
+        View successView = getSuccessView();
+        FragmentHomeBinding binding = FragmentHomeBinding.bind(successView);
         //给ViewPager设置适配器
         mhomePagerAdapter = new HomePagerAdapter(this);
         //设置适配器
@@ -34,6 +39,11 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         new TabLayoutMediator(binding.homeIndicator, binding.homePager,
                 (tab, position) -> tab.setText(mhomePagerAdapter.getPageTitle(position))
         ).attach();
+    }
+
+    @Override
+    protected View loadRootView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.base_home_fragment_layout, container, false);
     }
 
     @Override
@@ -79,6 +89,15 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         //取消回调注册
         if (mHomePresenter != null) {
             mHomePresenter.unregisterCallback(this);
+        }
+    }
+
+    @Override
+    protected void onRetryClick() {
+        //网络错误，点击了重试
+        //重新加载分类内容
+        if (mHomePresenter != null) {
+            mHomePresenter.getCategories();
         }
     }
 }

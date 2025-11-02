@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.taobaounion.R;
+import com.example.taobaounion.utils.LogUtils;
 
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
@@ -30,18 +30,30 @@ public abstract class BaseFragment extends Fragment {
     private Unbinder mBind;
     private FrameLayout mBaseContainer;
 
+    /**
+     * 如果子Fragment需要知道网络错误以后的点击，那覆盖这些方法即可
+     */
+    protected void onRetryClick() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.base_fragment_layout, container, false);
+        View rootView = loadRootView(inflater, container);
+
         mBaseContainer = rootView.findViewById(R.id.base_container);
         loadStatusView(inflater, container);
-        View successView = loadSuccessView(inflater, container);
-        mBind = ButterKnife.bind(this, rootView);
+
         initView(rootView);
         initPresenter();
         loadData();
+
         return rootView;
+    }
+
+    protected View loadRootView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.base_fragment_layout, container, false);
     }
 
     /**
@@ -63,6 +75,15 @@ public abstract class BaseFragment extends Fragment {
         //空页面
         mEmptyView = loadEmptyView(inflater, container);
         mBaseContainer.addView(mEmptyView);
+
+        View retryView = mErrorView.findViewById(R.id.network_error_tips);
+        if (retryView != null) {
+            retryView.setOnClickListener(v -> {
+                LogUtils.d(this, "on retry...");
+                onRetryClick();
+            });
+        }
+
         setupState(State.NONE);
     }
 
@@ -127,8 +148,12 @@ public abstract class BaseFragment extends Fragment {
 
     protected View loadSuccessView(LayoutInflater inflater, ViewGroup container) {
         int resId = getRootViewResId();
-        return inflater.inflate(resId, container, false);
+        return inflater.inflate(resId, null, false);
     }
 
     protected abstract int getRootViewResId();
+
+    protected View getSuccessView() {
+        return mSuccessView;
+    }
 }
